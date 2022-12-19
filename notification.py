@@ -29,18 +29,8 @@ def daily_bonus(driver):
 
 def notification(driver):
   try:
-    """ noti = driver.find_element(By.ID, 'blackoutDialognotification')
-    noti_btn = noti.find_element(By.CSS_SELECTOR, '.awesome-button')
-    if len(noti_btn) > 0:
-      return noti_btn
-    else:
-      return False """
     noti_tarefa = driver.find_element(By.ID, 'header_notification').text
-    #if noti_tarefa == 'Tarefa Completa' or 'Nível' in noti_tarefa or 'Para' in noti_tarefa:
     if 'a' in noti_tarefa or 'e' in noti_tarefa or 'o' in noti_tarefa:
       return driver.find_element(By.ID, 'linknotification')
   except:
     return False
-
-#noti_tarefa = driver.find_element(By.ID, 'header_notification').text
-#noti_tarefa = 'Tarefa Completa'

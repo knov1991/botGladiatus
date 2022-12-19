@@ -21,7 +21,7 @@ stat = 2
 sh = False
 
 
-# Iniciar o navegador / browser
+# Iniciar o navegador/browser // start-maximized = assistir bot // headless(+window_size - não necessário) = bot background 
 options = webdriver.ChromeOptions()
 options.add_argument('start-maximized')
 #options.add_argument('headless')

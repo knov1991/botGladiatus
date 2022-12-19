@@ -9,6 +9,7 @@ def logar(driver, email, senha):
     tela_login(driver, email, senha)
     logado = tela_servidor(driver)
 
+#Primeira tela ao abrir o site do jogo - realizar login
 def tela_login(driver, email, senha):
   try:
     sleep(3)
@@ -30,6 +31,7 @@ def tela_login(driver, email, senha):
   except:
     pass
 
+#Após login realizado - a segunda tela ira selecionar o servidor // último server conectado
 def tela_servidor(driver):
   try:
     btn_server = driver.find_element(By.CSS_SELECTOR, ".button-default")

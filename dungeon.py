@@ -13,7 +13,7 @@ def loop(driver):
     dun = driver.find_element(By.ID, 'cooldown_bar_dungeon')
     dun_timer = dun.find_element(By.ID, 'cooldown_bar_text_dungeon')
     dun_btn = dun.find_elements(By.CLASS_NAME, 'cooldown_bar_link')[0]
-    if dun_timer.text == 'Ir para a Masmorra': #Go to dungeon
+    if dun_timer.text == 'Ir para a Masmorra':  #Verifica se o cooldown para dungeon já terminou
       dun_btn.click()
       sleep(3)
       dun = driver.find_element(By.ID, 'cooldown_bar_dungeon')
