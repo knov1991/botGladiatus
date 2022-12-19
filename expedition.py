@@ -9,19 +9,29 @@ def loop(driver, expedition_monster, expedition_hp):
   try:
     NOTIFICATION.loop(driver)
     
-    exp = driver.find_element(By.ID, 'cooldown_bar_expedition')
-    exp_timer = exp.find_element(By.ID, 'cooldown_bar_text_expedition')
-    exp_btn = exp.find_elements(By.CLASS_NAME, 'cooldown_bar_link')[0]
     hp_atual = VERIFICAR.verificar_hp(driver)
-    if exp_timer.text == 'Ir em Expedição' and hp_atual>= expedition_hp: #Verifica se o cooldown para expedição já terminou
-      exp_btn.click()
+    #Verifica se o cooldown para expedição já terminou // verifica hp para atacar
+    if expedition_timer(driver) == 'Ir em Expedição' and hp_atual>= expedition_hp:
+      expedition_button.click()
       sleep(3)
-      exp = driver.find_element(By.ID, 'cooldown_bar_expedition')
-      exp_timer = exp.find_element(By.ID, 'cooldown_bar_text_expedition')
       exp_btn_atacar = driver.find_elements(By.CLASS_NAME, 'expedition_button')
-      if exp_timer.text == 'Ir em Expedição' and len(exp_btn_atacar) > 0:
+      if expedition_timer(driver) == 'Ir em Expedição' and len(exp_btn_atacar) > 0:
         VERIFICAR.resultado(driver, 'Expedição!')
-        exp_btn_atacar[expedition_monster].click()  #Clica no monstro - escolher no main.py
+        exp_btn_atacar[expedition_monster].click()  #Clica no monstro - escolher em main.py
         sleep(2)
+  except:
+    pass
+
+def expedition_timer(driver):
+  try:
+    exp = driver.find_element(By.ID, 'cooldown_bar_expedition')
+    return exp.find_element(By.ID, 'cooldown_bar_text_expedition').text
+  except:
+    pass
+
+def expedition_button(driver):
+  try:
+    exp = driver.find_element(By.ID, 'cooldown_bar_expedition')
+    return exp.find_elements(By.CLASS_NAME, 'cooldown_bar_link')[0]
   except:
     pass
