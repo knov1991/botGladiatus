@@ -13,12 +13,14 @@ senha = 'knov972468'
 #email = 'lucasf@unipam.edu.br'
 #senha = 'Knov972468'
 expedition_monster = 0 #0~3 // 0=monstro mais fraco // 3=boss
-expedition_hp = 30
+expedition_hp = 70
 #treinamento
 treinar = True
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
 stat = 2
 sh = False
+mission_text = ['Circus', 'Encontre', 'Vence', 'Esqueleto Guerreiro', 'Campo Viking']
+mission_text_not = ['seguida', 'promoção', 'consecutiv']
 
 
 # Iniciar o navegador/browser // start-maximized = assistir bot // headless(+window_size - não necessário) = bot background 
@@ -38,6 +40,8 @@ DUNGEON = __import__('dungeon')
 ARENA_MERCENARIO = __import__('arena_mercenario')
 TREINAR = __import__('treinar')
 VERIFICAR = __import__('verificar')
+MISSION = __import__('mission')
+
 
 #INICIAR BOT
 LOGIN.logar(driver, email, senha)
@@ -45,7 +49,9 @@ while True:
   while sh == False:
     sh = VERIFICAR.get_sh(driver)
   NOTIFICATION.loop(driver)
+  MISSION.loop(driver, sh, mission_text, mission_text_not)
   EXPEDITION.loop(driver, expedition_monster, expedition_hp)
   DUNGEON.loop(driver)
   ARENA_MERCENARIO.loop(driver)
   TREINAR.loop(driver, treinar, stat, sh)
+  

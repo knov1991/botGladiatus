@@ -1,6 +1,7 @@
 #Minhas exclusões
 chromedriver.exe
 privateServer/gladiatusHeadless.exe
+originalRequest/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -17,7 +17,7 @@ def loop(driver, treinar, stat, sh):
     
     if treinar == True:
       if stat_price == 0:
-        LINKS.tela_treinamento(driver, sh)
+        LINKS.link_tela_treinamento(driver, sh)
         stat_price = int(driver.find_elements(By.CLASS_NAME, 'training_costs')[stat].text.replace('.',''))
         sleep(0.2)
         print('preço-treinamento:', stat_price)
@@ -25,7 +25,7 @@ def loop(driver, treinar, stat, sh):
         gold = int(VERIFICAR.verificar_gold(driver).replace('.',''))
         sleep(0.1)
         if gold >= stat_price:
-          LINKS.tela_treinamento(driver, sh)
+          LINKS.link_tela_treinamento(driver, sh)
           realizar_treinamento(driver, stat, sh).click()
           VERIFICAR.resultado(driver, 'Treinando!')
           stat_price = int(driver.find_elements(By.CLASS_NAME, 'training_costs')[stat].text.replace('.',''))
