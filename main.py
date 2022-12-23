@@ -13,13 +13,13 @@ senha = 'knov972468'
 #email = 'lucasf@unipam.edu.br'
 #senha = 'Knov972468'
 expedition_monster = 0 #0~3 // 0=monstro mais fraco // 3=boss
-expedition_hp = 70
+expedition_hp = 60
 #treinamento
-treinar = True
+treinar = False
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
 stat = 2
 sh = False
-mission_text = ['Circus', 'Encontre', 'Vence', 'Esqueleto Guerreiro', 'Campo Viking']
+mission_text = ['Circus', 'Encontre', 'Vence', 'Campo Viking', 'Soldado Renegado']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']
 
 
@@ -54,4 +54,3 @@ while True:
   DUNGEON.loop(driver)
   ARENA_MERCENARIO.loop(driver)
   TREINAR.loop(driver, treinar, stat, sh)
-  

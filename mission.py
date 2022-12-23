@@ -17,7 +17,11 @@ def loop(driver, sh, mission_text, mission_text_not):
       
     if int(mission_count) < 5:
       quests_inativas = driver.find_elements(By.CLASS_NAME, 'contentboard_slot_inactive')
-      iniciar_quest(driver, quests_inativas, mission_text, mission_text_not)
+      ativar_quest = iniciar_quest(driver, quests_inativas, mission_text, mission_text_not)
+      if ativar_quest != False:
+        print('ativando quest:', ativar_quest)
+        driver.get(ativar_quest)
+        sleep(2)
 
     refresh_mission(driver, sh)
   except:
@@ -39,8 +43,8 @@ def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not):
   try:
     verifica_cooldown = driver.find_element(By.ID, 'quest_header_cooldown')
     if verifica_cooldown:
-      print('esta em CD!')
-      return
+      #print('esta em CD!')
+      return False
   except:
     print('missão não esta em CD')
     for n_quest in range(len(quests_inativas)):
@@ -49,7 +53,7 @@ def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not):
       #procurar texto valido
       for n_text_valido in range(len(mission_text)):
         if mission_text[n_text_valido] in quest_titulo:
-          print('encontrado:', mission_text[n_text_valido])
+          #print('encontrado:', mission_text[n_text_valido])
           validar_text_not = 0
           for n_text_invalido in range(len(mission_text_not)):
             if mission_text_not[n_text_invalido] in quest_titulo:
@@ -57,15 +61,17 @@ def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not):
           if validar_text_not == 0:
             verifica_limite_tempo = quests_inativas[n_quest].find_elements(By.CLASS_NAME, 'quest_slot_time')
             if not verifica_limite_tempo:
-              print('iniciar quest')
+              #print('iniciar quest', mission_text[n_text_valido])
               iniciar = quests_inativas[n_quest].find_elements(By.CLASS_NAME, 'quest_slot_button_accept')[0]
-              iniciar.click()
-              sleep(1)
-              VERIFICAR.resultado(driver, 'Missão Iniciada!')
-              return
+              link_iniciar_quest = iniciar.get_attribute("href")
+              #VERIFICAR.resultado(driver, 'Missão Iniciada! -', mission_text[n_text_valido])
+              #driver.get(link_iniciar_quest)
+              #sleep(2)
+              return link_iniciar_quest
+    return False
 
 def refresh_mission(driver, sh):  
-  print('function refresh')
+  #print('function refresh')
   try:
     verifica_cooldown = driver.find_element(By.ID, 'quest_header_cooldown')
     if verifica_cooldown:
