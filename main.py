@@ -17,7 +17,7 @@ expedition_hp = 60
 #treinamento
 treinar = False
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
-stat = 2
+stat = 5
 sh = False
 mission_text = ['Circus', 'Encontre', 'Vence', 'Campo Viking', 'Soldado Renegado']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']

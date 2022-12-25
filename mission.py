@@ -13,14 +13,18 @@ def loop(driver, sh, mission_text, mission_text_not):
     mission_count = driver.find_element(By.ID, 'quest_header_accepted').text[-5]
     if int(mission_count) > 0:
       quests_ativas = driver.find_elements(By.CLASS_NAME, 'contentboard_slot_active')
-      finalizar_quest(driver, quests_ativas)
+      link_terminar_quest = finalizar_quest(driver, quests_ativas)
+      if link_terminar_quest != False:
+        print('terminando quest:', link_terminar_quest)
+        driver.get(link_terminar_quest)
+        sleep(2)
       
     if int(mission_count) < 5:
       quests_inativas = driver.find_elements(By.CLASS_NAME, 'contentboard_slot_inactive')
-      ativar_quest = iniciar_quest(driver, quests_inativas, mission_text, mission_text_not)
-      if ativar_quest != False:
-        print('ativando quest:', ativar_quest)
-        driver.get(ativar_quest)
+      link_ativar_quest = iniciar_quest(driver, quests_inativas, mission_text, mission_text_not)
+      if link_ativar_quest != False:
+        print('ativando quest:', link_ativar_quest)
+        driver.get(link_ativar_quest)
         sleep(2)
 
     refresh_mission(driver, sh)
@@ -29,15 +33,12 @@ def loop(driver, sh, mission_text, mission_text_not):
 
 def finalizar_quest(driver, quests_ativas):
     for i in range(len(quests_ativas)):
-      try:
-        finalizar = quests_ativas[i].find_elements(By.CLASS_NAME, 'quest_slot_button_finish')
-        if finalizar:
-          print('achou quest completa!')
-          finalizar[0].click()
-          VERIFICAR.resultado(driver, 'Missão Concluída!')
-          sleep(1)
-      except:
-        pass
+      finalizar = quests_ativas[i].find_elements(By.CLASS_NAME, 'quest_slot_button_finish')
+      if len(finalizar) > 0:
+        link_finalizar_quest = finalizar[0].get_attribute("href")
+        return link_finalizar_quest
+    #se não encontrar nenhuma quest para finalizar, retorna falso
+    return False
 
 def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not):
   try:
