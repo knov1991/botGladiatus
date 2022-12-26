@@ -14,12 +14,13 @@ senha = 'knov972468'
 #senha = 'Knov972468'
 expedition_monster = 1 #0~3 // 0=monstro mais fraco // 3=boss
 expedition_hp = 60
-#treinamento
-treinar = True
+arena_hp = 60
+#treinar
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
 stat = 0
 sh = False
-mission_text = ['Circus', 'Encontre', 'Vence', 'Guarda da Caravana']
+#mission_text = ['Circus', 'Encontre', 'Vence', 'Guarda da Caravana']
+mission_text = ['Circus', 'Encontre', 'Vence']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']
 
 
@@ -37,6 +38,7 @@ LOGIN = __import__('login')
 NOTIFICATION = __import__('notification')
 EXPEDITION = __import__('expedition')
 DUNGEON = __import__('dungeon')
+ARENA = __import__('arena')
 ARENA_MERCENARIO = __import__('arena_mercenario')
 TREINAR = __import__('treinar')
 VERIFICAR = __import__('verificar')
@@ -53,4 +55,5 @@ while True:
   ARENA_MERCENARIO.loop(driver)
   EXPEDITION.loop(driver, expedition_monster, expedition_hp)
   DUNGEON.loop(driver)
-  TREINAR.loop(driver, treinar, stat, sh)
+  ARENA.loop(driver, arena_hp)
+  TREINAR.loop(driver, stat, sh)
