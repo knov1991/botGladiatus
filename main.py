@@ -12,7 +12,7 @@ email = 'lucasf1991@hotmail.com'
 senha = 'knov972468'
 #email = 'lucasf@unipam.edu.br'
 #senha = 'Knov972468'
-expedition_monster = 0 #0~3 // 0=monstro mais fraco // 3=boss
+expedition_monster = 1 #0~3 // 0=monstro mais fraco // 3=boss
 expedition_hp = 60
 #treinamento
 treinar = True
