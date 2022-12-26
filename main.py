@@ -15,11 +15,11 @@ senha = 'knov972468'
 expedition_monster = 0 #0~3 // 0=monstro mais fraco // 3=boss
 expedition_hp = 60
 #treinamento
-treinar = False
+treinar = True
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
-stat = 5
+stat = 0
 sh = False
-mission_text = ['Circus', 'Encontre', 'Vence', 'Campo Viking', 'Soldado Renegado']
+mission_text = ['Circus', 'Encontre', 'Vence', 'Guarda da Caravana']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']
 
 
@@ -50,7 +50,7 @@ while True:
     sh = VERIFICAR.get_sh(driver)
   NOTIFICATION.loop(driver)
   MISSION.loop(driver, sh, mission_text, mission_text_not)
-  EXPEDITION.loop(driver, expedition_monster, expedition_hp)
-  DUNGEON.loop(driver)
   ARENA_MERCENARIO.loop(driver)
-  TREINAR.loop(driver, treinar, stat, sh)
+  #EXPEDITION.loop(driver, expedition_monster, expedition_hp)
+  #DUNGEON.loop(driver)
+  #TREINAR.loop(driver, treinar, stat, sh)
