@@ -17,11 +17,12 @@ expedition_hp = 50
 arena_hp = 70
 #treinar
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
-stat = 5
+stat = 3
 sh = False
 #mission_text = ['Circus', 'Encontre', 'Vence', 'Guarda da Caravana']
 mission_text = ['Circus', 'Encontre', 'Vence', 'Elefante']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']
+mission_text_combo = ['Mesoai-Oasi', 'sua escolha']
 
 
 # Iniciar o navegador/browser // start-maximized = assistir bot // headless(+window_size - não necessário) = bot background 
@@ -52,9 +53,9 @@ while True:
   while sh == False:
     sh = VERIFICAR.get_sh(driver)
   NOTIFICATION.loop(driver)
-  MISSION.loop(driver, sh, mission_text, mission_text_not)
+  MISSION.loop(driver, sh, mission_text, mission_text_not, mission_text_combo)
   ARENA_MERCENARIO.loop(driver)
   EXPEDITION.loop(driver, expedition_monster, expedition_hp)
-  #DUNGEON.loop(driver)
+  DUNGEON.loop(driver)
   #ARENA.loop(driver, arena_hp)
   TREINAR.loop(driver, stat, sh)
