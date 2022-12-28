@@ -19,7 +19,8 @@ def loop(driver):
       dun = driver.find_element(By.ID, 'cooldown_bar_dungeon')
       dun_pontos = driver.find_elements(By.CLASS_NAME, 'dungeon_header_open')
       if len(dun_pontos) == 0:
-        dun_normal = driver.find_elements(By.CLASS_NAME, 'button1')[0]
+        #dun_normal = driver.find_elements(By.CLASS_NAME, 'button1')[0]
+        dun_normal = driver.find_elements(By.NAME, 'dif1')[0]
         dun_normal.click()
         sleep(3)
         dun_pontos = driver.find_elements(By.CLASS_NAME, 'dungeon_header_open')

@@ -26,34 +26,24 @@ mission_text_not = ['seguida', 'promoção', 'consecutiv']
 
 # Iniciar o navegador/browser // start-maximized = assistir bot // headless(+window_size - não necessário) = bot background 
 options = webdriver.ChromeOptions()
-options.add_argument('start-maximized')
+#options.add_argument('start-maximized')
+options.add_experimental_option('debuggerAddress', 'localhost:10001')
 #options.add_argument('headless')
 #options.add_argument('window-size=1920,1080')
 options.add_argument('log-level=3')
 driver = webdriver.Chrome(options=options)
-driver.get('https://lobby.gladiatus.gameforge.com/pt_BR')
+#driver.get('https://lobby.gladiatus.gameforge.com/pt_BR')
 
 #Imports dos outros arquivos python
-LOGIN = __import__('login')
 NOTIFICATION = __import__('notification')
-EXPEDITION = __import__('expedition')
-DUNGEON = __import__('dungeon')
-ARENA = __import__('arena')
-ARENA_MERCENARIO = __import__('arena_mercenario')
 TREINAR = __import__('treinar')
 VERIFICAR = __import__('verificar')
-MISSION = __import__('mission')
 
-
-#INICIAR BOT
-LOGIN.logar(driver, email, senha)
+sleep(2)
+driver2.switch_to.window(driver2.window_handles[1])
 while True:
   while sh == False:
-    sh = VERIFICAR.get_sh(driver)
-  NOTIFICATION.loop(driver)
-  MISSION.loop(driver, sh, mission_text, mission_text_not)
-  ARENA_MERCENARIO.loop(driver)
-  EXPEDITION.loop(driver, expedition_monster, expedition_hp)
-  DUNGEON.loop(driver)
-  ARENA.loop(driver, arena_hp)
-  #TREINAR.loop(driver, stat, sh)
+    sh = VERIFICAR.get_sh(driver2)
+
+  driver2.get('https://s301-en.gladiatus.gameforge.com/game/index.php?mod=training&sh='+str(sh)+'')
+  sleep(2)

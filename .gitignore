@@ -2,6 +2,8 @@
 chromedriver.exe
 privateServer/gladiatusHeadless.exe
 originalRequest/
+Gladiatus-MadKoala.lnk
+Chrome-Gladiatus-MadKoala
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
