@@ -29,7 +29,7 @@ def comprar_item(driver, sh):
         vinculo_alma = market_items[0].get_attribute('data-tooltip')
         if 'Trisquel' in vinculo_alma and (almas[0] in vinculo_alma or almas[1] in vinculo_alma) and nome != CONFIG.login_data['account_name']:
           item_id = market_items[0].get_attribute('data-item-id')
-          print('achei item para comprar', item_id)
+          VERIFICAR.resultado(driver, 'Guild-Market : item para gold pack encontrado, item_id:', item_id)
           buy_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&buyid='+str(item_id)+'&buy=Comprar'     
           VERIFICAR.resultado(driver, 'Comprar Item - Guild Market!')
           driver.get(buy_url)
