@@ -13,9 +13,9 @@ def loop(driver, sh, mission_text, mission_text_not, mission_text_combo):
     mission_count = driver.find_element(By.ID, 'quest_header_accepted').text[-5]
     if int(mission_count) > 0:
       quests_ativas = driver.find_elements(By.CLASS_NAME, 'contentboard_slot_active')
-      link_terminar_quest = finalizar_quest(driver, quests_ativas)
+      link_terminar_quest = finalizar_quest(quests_ativas)
       if link_terminar_quest != False:
-        print('terminando quest:', link_terminar_quest)
+        VERIFICAR.resultado(driver, 'terminando quest:', link_terminar_quest)
         driver.get(link_terminar_quest)
         sleep(2)
       
@@ -23,7 +23,7 @@ def loop(driver, sh, mission_text, mission_text_not, mission_text_combo):
       quests_inativas = driver.find_elements(By.CLASS_NAME, 'contentboard_slot_inactive')
       link_ativar_quest = iniciar_quest(driver, quests_inativas, mission_text, mission_text_not, mission_text_combo)
       if link_ativar_quest != False:
-        print('ativando quest:', link_ativar_quest)
+        VERIFICAR.resultado(driver, 'ativando quest:', link_ativar_quest)
         driver.get(link_ativar_quest)
         sleep(2)
 
@@ -31,7 +31,7 @@ def loop(driver, sh, mission_text, mission_text_not, mission_text_combo):
   except:
     pass
 
-def finalizar_quest(driver, quests_ativas):
+def finalizar_quest(quests_ativas):
     for i in range(len(quests_ativas)):
       finalizar = quests_ativas[i].find_elements(By.CLASS_NAME, 'quest_slot_button_finish')
       if len(finalizar) > 0:
@@ -46,7 +46,6 @@ def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not, missi
     if verifica_cooldown:
       return False
   except:
-    print('missão não esta em CD')
     for n_quest in range(len(quests_inativas)):
       quest_titulo = quests_inativas[n_quest].find_elements(By.CLASS_NAME, 'quest_slot_title')[0].text
 
@@ -66,11 +65,10 @@ def iniciar_quest(driver, quests_inativas, mission_text, mission_text_not, missi
     return False
 
 def refresh_mission(driver, sh):  
-  #print('function refresh')
   try:
     verifica_cooldown = driver.find_element(By.ID, 'quest_header_cooldown')
     if verifica_cooldown:
       return
   except:
     LINKS.link_refresh_treinamento(driver, sh)
-    print('refresh missões')
+    VERIFICAR.resultado(driver, 'Refresh missões')

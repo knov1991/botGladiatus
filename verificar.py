@@ -14,14 +14,16 @@ def verificar_hp(driver):
 def verificar_gold(driver):
   sleep(0.5)
   try:
-    return str(driver.find_element(By.ID, 'sstat_gold_val').text)
+    gold_string = str(driver.find_element(By.ID, 'sstat_gold_val').text)
+    return int(gold_string.replace('.',''))
   except:
     return -1
 
 def verificar_ruby(driver):
   sleep(0.5)
   try:
-    return str(driver.find_element(By.ID, 'sstat_ruby_val').text)
+    ruby_string = str(driver.find_element(By.ID, 'sstat_ruby_val').text)
+    return int(ruby_string.replace('.',''))
   except:
     return -1
 

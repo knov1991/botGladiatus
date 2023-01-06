@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 VERIFICAR = __import__('verificar')
 NOTIFICATION = __import__('notification')
 
-def loop(driver):
+def loop(driver, dungeon_rank):
   try:
     NOTIFICATION.loop(driver)
     
@@ -19,9 +19,12 @@ def loop(driver):
       dun = driver.find_element(By.ID, 'cooldown_bar_dungeon')
       dun_pontos = driver.find_elements(By.CLASS_NAME, 'dungeon_header_open')
       if len(dun_pontos) == 0:
-        #dun_normal = driver.find_elements(By.CLASS_NAME, 'button1')[0]
-        dun_normal = driver.find_elements(By.NAME, 'dif1')[0]
-        dun_normal.click()
+        if dungeon_rank == 0:
+          dun_normal = driver.find_elements(By.NAME, 'dif1')[0]
+          dun_normal.click()
+        else:
+          dun_advanced = driver.find_elements(By.NAME, 'dif2')[0]
+          dun_advanced.click()
         sleep(3)
         dun_pontos = driver.find_elements(By.CLASS_NAME, 'dungeon_header_open')
       dun_btn_atacar =   driver.find_element(By.CSS_SELECTOR, "img[src='//gf3.geo.gfsrv.net/cdne6/643cfe405fb9a1fbd99513f08ca7fe.gif']")

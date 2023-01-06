@@ -1,0 +1,7 @@
+NOTIFICATION.loop(driver)
+  MISSION.loop(driver, sh, mission_text, mission_text_not, mission_text_combo)
+  ARENA_MERCENARIO.loop(driver)
+  EXPEDITION.loop(driver, expedition_monster, expedition_hp)
+  DUNGEON.loop(driver, dungeon_rank)
+  ARENA.loop(driver, arena_hp)
+  TREINAR.loop(driver, stat, sh)

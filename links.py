@@ -28,3 +28,10 @@ def link_refresh_treinamento(driver, sh):
     sleep(3)
   except:
     pass
+
+def link_guild_market(driver, sh):
+  try:
+    driver.get('https://s301-en.gladiatus.gameforge.com/game/index.php?mod=guildMarket&sh='+str(sh)+'')
+    sleep(3)
+  except:
+    pass

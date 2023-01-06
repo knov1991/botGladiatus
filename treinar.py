@@ -19,7 +19,7 @@ def loop(driver, stat, sh):
       LINKS.link_tela_treinamento(driver, sh)
       stat_price = int(driver.find_elements(By.CLASS_NAME, 'training_costs')[stat].text.replace('.',''))
       sleep(0.2)
-      print('preço-treinamento:', stat_price)
+      VERIFICAR.resultado(driver, 'Preço-treinamento:', stat_price)
     else:
       gold = int(VERIFICAR.verificar_gold(driver).replace('.',''))
       sleep(0.1)
@@ -29,7 +29,7 @@ def loop(driver, stat, sh):
         VERIFICAR.resultado(driver, 'Treinando!')
         stat_price = int(driver.find_elements(By.CLASS_NAME, 'training_costs')[stat].text.replace('.',''))
         sleep(0.2)
-        print('preço-treinamento:', stat_price)
+        VERIFICAR.resultado(driver, 'Preço-treinamento:', stat_price)
         sleep(1)
   except:
     pass
@@ -42,4 +42,4 @@ def realizar_treinamento(driver, stat, sh):
     treino.click()
     sleep(2)
   except:
-    print('não achou botão de treinamento!')
+    VERIFICAR.resultado(driver, 'Falha no treinamento!')
