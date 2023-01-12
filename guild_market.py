@@ -24,16 +24,19 @@ def comprar_item(driver, sh):
     for i in range(len(tr)):
       market_items = tr[i].find_elements(By.CLASS_NAME, 'item-i-white')
       if len(market_items) > 0:
-        nome = tr[i].find_element(By.CSS_SELECTOR, 'span').text
-        almas = ['Alma de: Dyroths', 'Alma de: Freedom']
-        vinculo_alma = market_items[0].get_attribute('data-tooltip')
-        if CONFIG.login_data['gold_pack_item'] in vinculo_alma and (almas[0] in vinculo_alma or almas[1] in vinculo_alma) and nome != CONFIG.login_data['account_name']:
-          item_id = market_items[0].get_attribute('data-item-id')
-          buy_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&buyid='+str(item_id)+'&buy=Comprar'
-          VERIFICAR.resultado(driver, 'Guild-Market: Comprar Item!')
-          driver.get(buy_url)
-          sleep(5)
-          return
+        preco_str = tr[i].find_elements(By.CSS_SELECTOR, 'td')[2].text
+        preco = int(preco_str.replace('.',''))
+        if preco == CONFIG.login_data['gold_pack_value']:
+          nome = tr[i].find_element(By.CSS_SELECTOR, 'span').text
+          almas = ['Alma de: Dyroths', 'Alma de: Freedom']
+          vinculo_alma = market_items[0].get_attribute('data-tooltip')
+          if CONFIG.login_data['gold_pack_item'] in vinculo_alma and (almas[0] in vinculo_alma or almas[1] in vinculo_alma) and nome != CONFIG.login_data['account_name']:
+            item_id = market_items[0].get_attribute('data-item-id')
+            buy_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&buyid='+str(item_id)+'&buy=Comprar'
+            VERIFICAR.resultado(driver, 'Guild-Market: Comprar Item!')
+            driver.get(buy_url)
+            sleep(5)
+            return
   except:
     pass
 
@@ -47,8 +50,9 @@ def vender_item(driver, sh):
     if len(item) > 0:
       item_id = item[0].get_attribute('data-item-id')
       item_info = item[0].get_attribute('data-tooltip')
+      item_amount = item[0].get_attribute('')
       if CONFIG.login_data['gold_pack_item'] in item_info:
-        sell_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&sellid='+str(item_id)+'&preis='+str(CONFIG.login_data['gold_pack_value'])+'&dauer=2&sell_mode=0&anbieten=Oferta'
+        sell_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&sellid='+str(item_id)+'&preis='+str(CONFIG.login_data['gold_pack_value'])+'&dauer='+CONFIG.login_data['gold_pack_tempo']+'&sell_mode=0&anbieten=Oferta'
         VERIFICAR.resultado(driver, 'Guild-Market: Vender Item!')
         driver.get(sell_url)
         sleep(3)
@@ -60,7 +64,7 @@ def vender_item(driver, sh):
 #https://s301-en.gladiatus.gameforge.com/game/ajax.php?mod=inventory&submod=move&from=-12100048&fromX=1&fromY=1&to=513&toX=1&toY=1&amount=1
 #mod=inventory&submod=move&from=-12100048&fromX=1&fromY=1&to=513&toX=1&toY=1&amount=1
 def pacotes_pegar_item(driver, sh):
-  driver.get('https://s301-en.gladiatus.gameforge.com/game/index.php?mod=packages&f=0&fq=-1&qry='+CONFIG.login_data['gold_pack_item']+'&page=1&sh=94e1eae61b2c542175f216da74e853ef')
+  driver.get(CONFIG.login_data['index_url']+'?mod=packages&f=0&fq=-1&qry='+CONFIG.login_data['gold_pack_item']+'&page=1&sh='+str(sh))
   sleep(3)
   try:
     pacotes = driver.find_element(By.ID, 'packages')
@@ -73,6 +77,7 @@ def pacotes_pegar_item(driver, sh):
       inventory_item_check = inventory.find_elements(By.CLASS_NAME, 'item-i-white')
       if len(inventory_item_check) == 0:
         url_pegar_item = CONFIG.login_data['ajax_url']+'?mod=inventory&submod=move&from='+str(item_location)+'&fromX=1&fromY=1&to=513&toX=1&toY=1&amount=1&sh='+str(sh)
+        #url_pegar_item = CONFIG.login_data['ajax_url']+'?mod=inventory&submod=move&from='+str(item_location)+'&fromX=1&fromY=1&to=513&toX=1&toY=1&sh='+str(sh)
         VERIFICAR.resultado(driver, 'Pegar Item - Guild Gold Pack!')
         driver.get(url_pegar_item)
         sleep(3)

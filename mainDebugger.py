@@ -7,18 +7,22 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
+from seleniumrequests import Firefox, Chrome
 
 #Variáveis de inicialização
 expedition_monster = 3 #0~3 // 0=monstro mais fraco // 3=boss
-expedition_hp = 35
+expedition_hp = 40
 arena_hp = 50
+hp_usar_food = 40
+
 #treinar
 #stat_list = ['str', 'dex', 'agi', 'con', 'car', 'int']
-stat = 3
+stat = 3 #0~5
+
 sh = False
 dungeon_rank = 1 # 0 = normal // 1 = avançado
 #mission_text = ['Circus', 'Encontre', 'Vence', 'Guarda da Caravana']
-mission_text = ['Circus', 'Encontre', 'Vence', 'Elefante']
+mission_text = ['Circus', 'Encontre', 'Vence', 'Elefante Demon']
 mission_text_not = ['seguida', 'promoção', 'consecutiv']
 mission_text_combo = ['Mesoai-Oasi', 'sua escolha']
 
@@ -30,7 +34,7 @@ options.add_experimental_option('debuggerAddress', 'localhost:10001')
 #options.add_argument('headless')
 #options.add_argument('window-size=1920,1080')
 options.add_argument('log-level=3')
-driver = webdriver.Chrome(options=options)
+#driver = webdriver.Chrome(options=options)
 
 #Imports dos outros arquivos python
 LOGIN = __import__('login')
@@ -44,28 +48,31 @@ VERIFICAR = __import__('verificar')
 MISSION = __import__('mission')
 CONFIG = __import__('config')
 GUILD_MARKET = __import__('guild_market')
+FOOD = __import__('food')
 
 #LOGIN
 #driver.get('https://lobby.gladiatus.gameforge.com/pt_BR')
 #LOGIN.logar(driver)
 
-#INICIAR BOT
+
 #config = __import__('config')
 #config.login['index_url'] = f"https://s{config.login['server_number']}-{config.login['server_country']}.gladiatus.gameforge.com/game/index.php"
 #config.login['ajax_url'] = f"https://s{config.login['server_number']}-{config.login['server_country']}.gladiatus.gameforge.com/game/ajax.php"
 
+#INICIAR BOT
+with Chrome(options=options) as driver:
+  while sh == False:
+      sh = VERIFICAR.get_sh(driver)
+  CONFIG.login_data['index_url'] = f"https://s{CONFIG.login_data['server_number']}-{CONFIG.login_data['server_country']}.gladiatus.gameforge.com/game/index.php"
+  CONFIG.login_data['ajax_url'] = f"https://s{CONFIG.login_data['server_number']}-{CONFIG.login_data['server_country']}.gladiatus.gameforge.com/game/ajax.php"
 
-while sh == False:
-    sh = VERIFICAR.get_sh(driver)
-CONFIG.login_data['index_url'] = f"https://s{CONFIG.login_data['server_number']}-{CONFIG.login_data['server_country']}.gladiatus.gameforge.com/game/index.php"
-CONFIG.login_data['ajax_url'] = f"https://s{CONFIG.login_data['server_number']}-{CONFIG.login_data['server_country']}.gladiatus.gameforge.com/game/ajax.php"
-
-while True:  
-  NOTIFICATION.loop(driver)
-  MISSION.loop(driver, sh, mission_text, mission_text_not, mission_text_combo)
-  ARENA_MERCENARIO.loop(driver)
-  EXPEDITION.loop(driver, expedition_monster, expedition_hp)
-  DUNGEON.loop(driver, dungeon_rank)
-  ARENA.loop(driver, arena_hp)
-  TREINAR.loop(driver, stat, sh)
-  GUILD_MARKET.loop(driver, sh)
+  while True:  
+    NOTIFICATION.loop(driver)
+    MISSION.loop(driver, sh, mission_text, mission_text_not, mission_text_combo)
+    ARENA_MERCENARIO.loop(driver)
+    EXPEDITION.loop(driver, expedition_monster, expedition_hp)
+    DUNGEON.loop(driver, dungeon_rank)
+    ARENA.loop(driver, arena_hp)
+    TREINAR.loop(driver, stat, sh)
+    GUILD_MARKET.loop(driver, sh)
+    FOOD.loop(driver, sh, hp_usar_food)

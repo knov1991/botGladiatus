@@ -9,7 +9,7 @@ def verificar_hp(driver):
   try: 
     return int(driver.find_element(By.ID, 'header_values_hp_percent').text[:-1])
   except:
-    return 0
+    return -1
 
 def verificar_gold(driver):
   sleep(0.5)

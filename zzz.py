@@ -1,1 +1,11 @@
-[[["Escudo redondo Lucius","lime; text-shadow: 0 0 2px #000, 0 0 2px lime"],["V\u00ednculo a Alma de: MadKoala","#DDD"],["Dano +5","#DDD"],["Armadura +1792","#DDD"],["Constitui\u00e7\u00e3o +12","#DDD"],["Carisma +15","#DDD"],["valor de dano cr\u00edtico +25","#DDD"],["Valor de bloqueio +55","#DDD"],["evoluindo o valor +15","#DDD"],["Amea\u00e7a +35","#DDD"],["N\u00edvel 87","#808080"],["Valor 10.489 <div class=\"icon_gold\"><\/div>","#DDDDDD"],["Durabilidade 114364\/114364 (100%)","#00ff00"],["Condicionamento 0\/28591 (0%)","#808080"]]]
+def coord():
+  try:
+    x = 1
+    y = 2
+    open('aaa.txt')
+    return x,y
+  except:
+    return []
+
+
+print(len(coord()))

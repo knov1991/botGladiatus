@@ -1,6 +1,6 @@
 login_data = {
-  'email': 'lucasf1991@hotmail.com',
-  'senha': 'knov972468',
+  'email': '',
+  'senha': '',
   'account_name': 'MadKoala',
   'server_country': 'en',
   'server_number': 301,
@@ -9,4 +9,6 @@ login_data = {
 
   'gold_pack_item': 'Trisquel',
   'gold_pack_value': 100000,
+  'gold_pack_tempo': '3', #1=2h // 2=8h // 3=24h
+  'gold_pack_vinculo': ['Dyroths', 'Freedom']
 }
