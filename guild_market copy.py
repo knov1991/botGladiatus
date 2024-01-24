@@ -12,14 +12,13 @@ def loop(driver, sh):
     gold = VERIFICAR.verificar_gold(driver)
     if gold > CONFIG.login_data['gold_pack_value']/20:
       vender_item(driver, sh)
-    if gold > 0:#CONFIG.login_data['gold_pack_value']:
+    if gold > CONFIG.login_data['gold_pack_value']:
       comprar_item(driver, sh)
     pacotes_pegar_item(driver, sh)
   except:
     pass
 
 def comprar_item(driver, sh):
-  lista_compra = []
   try:
     #buyid=494228&qry=&seller=&f=0&fl=0&fq=-1&s=&p=1&buy=Comprar
     market_table = driver.find_element(By.ID, 'market_table')
@@ -35,13 +34,11 @@ def comprar_item(driver, sh):
           vinculo_alma = market_items[0].get_attribute('data-tooltip')
           if CONFIG.login_data['gold_pack_item'] in vinculo_alma and (almas[0] in vinculo_alma or almas[1] in vinculo_alma) and nome != CONFIG.login_data['account_name']:
             item_id = market_items[0].get_attribute('data-item-id')
-            lista_compra.append(CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&buyid='+str(item_id)+'&buy=Comprar')
-    #Comprar itens se existir algum na lista
-    if len(lista_compra) > 0:
-      VERIFICAR.resultado(driver, 'Guild-Market: Comprar Item!')
-      for i in range(len(lista_compra)):
-        driver.get(lista_compra[i])
-      sleep(5)
+            buy_url = CONFIG.login_data['index_url']+'?mod=guildMarket&sh='+str(sh)+''+'&buyid='+str(item_id)+'&buy=Comprar'
+            VERIFICAR.resultado(driver, 'Guild-Market: Comprar Item!')
+            driver.get(buy_url)
+            sleep(5)
+            return
   except:
     pass
 
