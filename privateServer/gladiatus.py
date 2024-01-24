@@ -31,11 +31,13 @@ def telalogin():
     try:
         user = driver.find_element(By.ID, 'login_username')
         sleep(0.1)
-        user.send_keys('knov1991')
+        # Username
+        user.send_keys('')
         sleep(0.1)
         user = driver.find_element(By.ID, 'login_password')
         sleep(0.1)
-        user.send_keys('knov972468')
+        # Password
+        user.send_keys('')
         sleep(0.1)
         btnLogin = driver.find_element(By.ID, 'loginsubmit')
         btnLogin.click()
